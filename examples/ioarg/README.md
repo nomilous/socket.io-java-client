@@ -27,7 +27,7 @@ Assuming you have [nodejs](http://nodejs.org/)
 
 mkdir node_modules
 npm install coffee-script socket.io
-./node_modules/
+./node_modules/.bin/coffee examples/ioarg/Server.coffee
 
 
 ```
