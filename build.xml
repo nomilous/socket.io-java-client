@@ -19,6 +19,7 @@
         <pathelement location="bin"/>
         <pathelement location="libs/json-org.jar"/>
         <pathelement location="libs/WebSocket.jar"/>
+        <pathelement location="libs/gson-2.2.2.jar"/>
         <path refid="JUnit 4.libraryclasspath"/>
     </path>
     <target name="init">

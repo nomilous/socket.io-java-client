@@ -33,6 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
 /**
  * The Class IOConnection.
  */
@@ -820,7 +822,7 @@ class IOConnection implements IOCallback {
 	 * @param ack
 	 *            acknowledge package which can be called from the server
 	 * @param args
-	 *            the arguments to be send
+	 *            the arguments to be sent
 	 */
 	public void emit(SocketIO socket, String event, IOAcknowledge ack,
 			Object... args) {
@@ -832,6 +834,33 @@ class IOConnection implements IOCallback {
 			synthesizeAck(message, ack);
 			sendPlain(message.toString());
 		} catch (JSONException e) {
+			error(new SocketIOException(
+					"Error while emitting an event. Make sure you only try to send arguments, which can be serialized into JSON."));
+		}
+
+	}
+
+	/**
+	 * emits an event from {@link SocketIO} to the {@link IOTransport}.
+	 * 
+	 * @param socket
+	 *            the socket
+	 * @param event
+	 *            the event
+	 * @param ack
+	 *            acknowledge package which can be called from the server
+	 * @param args
+	 *            the arguments to be sent
+	 */
+	public void emit(SocketIO socket, String event, IOAcknowledge ack,
+			IOArg... args) {
+		try {
+			Gson gson = new Gson();
+			IOMessage message = new IOMessage(IOMessage.TYPE_EVENT,
+					socket.getNamespace(), IOArgMarshal.toJson(gson, event, args));
+			synthesizeAck(message, ack);
+			sendPlain(message.toString());
+		} catch (Exception e) {
 			error(new SocketIOException(
 					"Error while emitting an event. Make sure you only try to send arguments, which can be serialized into JSON."));
 		}

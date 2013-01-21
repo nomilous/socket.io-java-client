@@ -255,6 +255,39 @@ public class SocketIO {
 	}
 
 	/**
+	 * Emits an event to the Socket.IO server. If the connection is not
+	 * established, the call will be buffered and sent as soon as it is
+	 * possible.
+	 * 
+	 * @param event
+	 *            the event name
+	 * @param args
+	 *            arguments. can be any Class instances decended from IOArg.
+	 */
+	public void emit(final String event, final IOArg... args) {
+		this.connection.emit(this, event, null, args);
+	}
+
+	/**
+	 * Emits an event to the Socket.IO server. If the connection is not
+	 * established, the call will be buffered and sent as soon as it is
+	 * possible.
+	 * 
+	 * @param event
+	 *            the event name
+	 * @param ack
+	 *            an acknowledge implementation
+	 * @param args
+	 *            arguments. can be any Class instances decended from IOArg.
+	 */
+	public void emit(final String event, IOAcknowledge ack,
+			final IOArg... args) {
+		this.connection.emit(this, event, ack, args);
+	}
+	
+
+
+	/**
 	 * Gets the callback. Internally used.
 	 * 
 	 * @return the callback
