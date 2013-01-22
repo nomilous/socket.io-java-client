@@ -3,12 +3,11 @@ package examples.ioarg;
 
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
-import io.socket.IOArg;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import io.socket.IOArg;
+import io.socket.IODefaultCallback;
 
 class Knowledge extends IOArg {
     private UnKnown[] unknownUnknowns;
@@ -50,7 +49,7 @@ class UnKnown extends Known {
 }
 
 
-class Example implements IOCallback {
+class Example extends IODefaultCallback {
 
     private SocketIO socket;
 
@@ -70,23 +69,26 @@ class Example implements IOCallback {
         // Pass Object instances to socket.io emitter
         // 
 
-        socket.emit("event:sent", new Knowledge(), new Known(" garden") );
+        socket.emit("event:sent:to:server", new Knowledge(), new Known(" garden") );
         
     }
 
-    @Override
-    public void onMessage(JSONObject json, IOAcknowledge ack) {
-        try {
-            System.out.println("Server said:" + json.toString(2));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onMessage(String data, IOAcknowledge ack) {
-        System.out.println("Server said: " + data);
-    }
+    // made these optional
+    //
+    // @Override
+    // public void onMessage(JSONObject json, IOAcknowledge ack) {
+    //     try {
+    //         System.out.println("Server said:" + json.toString(2));
+    //     } catch (JSONException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+    //
+    // @Override
+    // public void onMessage(String data, IOAcknowledge ack) {
+    //     System.out.println("Server said: " + data);
+    // }
+    //
 
     @Override
     public void onError(SocketIOException socketIOException) {
@@ -106,6 +108,11 @@ class Example implements IOCallback {
 
     @Override
     public void on(String event, IOAcknowledge ack, Object... args) {
+
+        //
+        // pending: cast the inbound json to specified class
+        //
+
         System.out.println("Server triggered event '" + event + "'");
     }
 
