@@ -85,13 +85,19 @@ class Example extends IODefaultCallback {
 
 
         //
-        // socket.when("enterprise:beams:recon", Data.class, Spock.class, Kirk.class).then( new IOEvent() {
+        // final PlanetInspection pi = new ThirdComing();
+        //
+        //
+        //
+        // socket.when("enterprise:beams:recon", Data.class, Spock.class, Kirk.class, BleepyThing.class).then( new IOEvent() {
         // 
-        //      public void handle( Data data, Spock spock, Kirk kirk ) { 
+        //      public void handle( Data data, Spock spock, Kirk kirk, BleepyThing nokia ) { 
         //
         //           // 
         //           // possible >> ?
         //           // 
+        //
+        //           pi.doWith( data, spock, kirk, nokia );
         // 
         //      }
         //
