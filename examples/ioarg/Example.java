@@ -91,13 +91,13 @@ class Example extends IODefaultCallback {
         //
         // socket.when("enterprise:beams:recon", Data.class, Spock.class, Kirk.class, BleepyThing.class).then( new IOEvent() {
         // 
-        //      public void handle( Data data, Spock spock, Kirk kirk, BleepyThing nokia ) { 
+        //      public void handle( Data data, Spock spock, Kirk kirk, BleepyThing nexus7 ) { 
         //
         //           // 
         //           // possible >> ?
         //           // 
         //
-        //           pi.doWith( data, spock, kirk, nokia );
+        //           pi.doWith( data, spock, kirk, nexus7 );
         // 
         //      }
         //
