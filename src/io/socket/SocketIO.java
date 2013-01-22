@@ -225,6 +225,34 @@ public class SocketIO {
 	}
 
 	/**
+	 * Registers an expected event with a predefined list of Objects to
+	 * deserialize the inbound json event args into.
+	 * 
+	 * @param event
+	 *            the event name
+	 * @param classes
+	 *            classes. defines the Class types expected in the args
+	 *            of an event arriving from the remote host
+	 * 
+	 */
+	public void when(final String event, final Class... classes) {
+
+
+
+
+		//
+		// pending...
+		//
+
+
+		//
+		// consider also supporting an external callback
+		// that is expecting those args.
+		// 
+
+	}
+
+	/**
 	 * Emits an event to the Socket.IO server. If the connection is not
 	 * established, the call will be buffered and sent as soon as it is
 	 * possible.

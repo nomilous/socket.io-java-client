@@ -47,6 +47,9 @@ public interface IOCallback {
 	 * @param event Name of the event
 	 * @param ack an {@link IOAcknowledge} instance, may be <code>null</code> if there's none
 	 * @param args Arguments of the event
+	 * 
+	 * Arguments can optionally be marshalled to specific Classes by predefining expected
+	 * events using <code>myIOClientInstance.when(String event, Class... classes)</code>
 	 */
 	void on(String event, IOAcknowledge ack, Object... args);
 	

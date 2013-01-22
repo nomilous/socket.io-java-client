@@ -48,6 +48,23 @@ class UnKnown extends Known {
     }
 }
 
+class Clone extends IOArg {
+    private String description;
+    private String type;
+    private int count;
+    public String toString() { 
+        return String.format(
+
+            "f(%s) = %d", type, count
+
+        ); 
+    }
+}
+
+class OperatingInstructions extends IOArg {
+    public String instruction1;
+}
+
 
 class Example extends IODefaultCallback {
 
@@ -63,6 +80,25 @@ class Example extends IODefaultCallback {
 
     public Example() throws Exception {
         socket = new SocketIO();
+
+        socket.when("server:sends:cloned:sheep", Clone.class, OperatingInstructions.class);
+
+
+        //
+        // socket.when("enterprise:beams:recon", Data.class, Spock.class, Kirk.class).then( new IOEvent() {
+        // 
+        //      public void handle( Data data, Spock spock, Kirk kirk ) { 
+        //
+        //           // 
+        //           // possible >> ?
+        //           // 
+        // 
+        //      }
+        //
+        // }) ;
+        //
+
+
         socket.connect("http://127.0.0.1:3001/", this);
 
         //
@@ -113,7 +149,13 @@ class Example extends IODefaultCallback {
         // pending: cast the inbound json to specified class
         //
 
-        System.out.println("Server triggered event '" + event + "'");
+        System.out.println("Server triggered event '" + event + "'" + args.toString());
+
+        for( int i = 0; i < args.length; i++ ) {
+
+            System.out.println("     with arg'" + args[i].getClass());
+
+        }
     }
 
 }

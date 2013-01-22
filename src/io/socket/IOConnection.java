@@ -685,6 +685,17 @@ class IOConnection implements IOCallback {
 			}
 			break;
 		case IOMessage.TYPE_EVENT:
+
+
+
+
+			//
+			// pending alterations
+			//
+
+
+
+
 			try {
 				JSONObject event = new JSONObject(message.getData());
 				Object[] argsArray;
@@ -710,6 +721,13 @@ class IOConnection implements IOCallback {
 				logger.warning("Malformated JSON received");
 			}
 			break;
+
+
+
+
+
+
+
 
 		case IOMessage.TYPE_ACK:
 			String[] data = message.getData().split("\\+", 2);

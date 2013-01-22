@@ -16,4 +16,5 @@ io.sockets.on 'connection', (socket) ->
         console.log knowledge
         console.log afterthought
 
-        socket.emit 'event:sent:to:client', new Clone( 2, 'sheep')
+        socket.emit 'server:sends:cloned:sheep', new Clone( 2, 'sheep'), instruction1: 'Make warmer jerseys.'
+
