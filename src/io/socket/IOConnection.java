@@ -42,6 +42,9 @@ class IOConnection implements IOCallback {
 	/** Debug logger */
 	static final Logger logger = Logger.getLogger("io.socket");
 
+	/** Marshals from Classes to JSON **/
+	static final Gson gson = new Gson();
+
 	public static final String FRAME_DELIMITER = "\ufffd";
 
 	/** The Constant STATE_INIT. */
@@ -852,17 +855,16 @@ class IOConnection implements IOCallback {
 	 * @param args
 	 *            the arguments to be sent
 	 */
-	public void emit(SocketIO socket, String event, IOAcknowledge ack,
+	public synchronized void emit(SocketIO socket, String event, IOAcknowledge ack,
 			IOArg... args) {
 		try {
-			Gson gson = new Gson();
 			IOMessage message = new IOMessage(IOMessage.TYPE_EVENT,
 					socket.getNamespace(), IOArgMarshal.toJson(gson, event, args));
 			synthesizeAck(message, ack);
 			sendPlain(message.toString());
 		} catch (Exception e) {
 			error(new SocketIOException(
-					"Error while emitting an event. Make sure you only try to send arguments, which can be serialized into JSON."));
+					"Error while emitting an event. Make sure you only try to send arguments that extend io.socket.IOArg"));
 		}
 
 	}

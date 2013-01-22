@@ -3,11 +3,52 @@ package examples.ioarg;
 
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
+import io.socket.IOArg;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+class Knowledge extends IOArg {
+    private UnKnown[] unknownUnknowns;
+    protected UnKnown[] knownUnknowns;
+    public Known[] knownKnowns;
+    public Knowledge() {
+        unknownUnknowns = new UnKnown[] {
+            new UnKnown(" fullblown unknown"),
+            new UnKnown(" pre-owned unknown"),
+            new UnKnown(" home-grown unknown"),
+            new UnKnown(" big-boned known"),
+        };
+        knownUnknowns = new UnKnown[] {
+            new UnKnown(" de-throned unknown"),
+            new UnKnown(" flyblown known"),
+            new UnKnown(" well-toned known"),
+            new UnKnown(" freshly mown known"),
+            new UnKnown(" softly thrown known")
+        };
+        knownKnowns = new Known[] {
+            new Known(" re-zoned unknown"),
+            new Known(" well shown")
+        };
+    }
+}
+
+class Known extends IOArg{
+    protected String type;
+    public Known() {}
+    public Known(String type) {
+        this.type = "A" + type + " known.";
+    }
+}
+
+class UnKnown extends Known {
+    public UnKnown(String type) {
+        this.type = "A" + type + " unknown.";
+    }
+}
+
 
 class Example implements IOCallback {
 
@@ -26,8 +67,10 @@ class Example implements IOCallback {
         socket.connect("http://127.0.0.1:3001/", this);
 
         //
-        // pending IOArg usage
-        //
+        // Pass Object instances to socket.io emitter
+        // 
+
+        socket.emit("event:sent", new Knowledge(), new Known(" garden") );
         
     }
 

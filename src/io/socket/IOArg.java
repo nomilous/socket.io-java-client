@@ -14,13 +14,27 @@ package io.socket;
 
 import com.google.gson.Gson;
 
-public class IOArg {}
+public class IOArg {
+
+}
 
 class IOArgMarshal {
 
-    public static String toJson( Gson gson, String event, IOArg... args ) {
+    static class IOMessage {
 
-        return "pending";
+        private String name;
+        private IOArg[] args;
+
+        IOMessage(String event, IOArg... args) {
+            name = event;
+            this.args = args;
+        }
+
+    } 
+
+    public static String toJson(Gson gson, String event, IOArg... args) {
+
+        return gson.toJson(new IOMessage(event, args));
 
     }
 

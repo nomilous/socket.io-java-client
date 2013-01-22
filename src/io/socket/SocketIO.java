@@ -16,6 +16,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.json.JSONObject;
+import com.google.gson.Gson;
 
 /**
  * The Class SocketIO.
