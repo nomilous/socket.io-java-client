@@ -42,9 +42,6 @@ class IOConnection implements IOCallback {
 	/** Debug logger */
 	static final Logger logger = Logger.getLogger("io.socket");
 
-	/** Marshals from Classes to JSON **/
-	static final Gson gson = new Gson();
-
 	public static final String FRAME_DELIMITER = "\ufffd";
 
 	/** The Constant STATE_INIT. */
@@ -103,6 +100,12 @@ class IOConnection implements IOCallback {
 
 	/** The sockets of this connection. */
 	private HashMap<String, SocketIO> sockets = new HashMap<String, SocketIO>();
+
+	/** Marshals from Classes to JSON **/
+	static final Gson gson = new Gson();
+
+	/** Ref to the router defined on the IOSocket instance **/
+	private IOEventRouter eventRouter;
 
 	/** Custom Request headers used while handshaking */
 	private Properties headers;
@@ -417,6 +420,7 @@ class IOConnection implements IOCallback {
 		}
 		firstSocket = socket;
 		headers = socket.getHeaders();
+		eventRouter = socket.getEventRouter();
 		sockets.put(socket.getNamespace(), socket);
 		new ConnectThread().start();
 	}
@@ -685,17 +689,7 @@ class IOConnection implements IOCallback {
 			}
 			break;
 		case IOMessage.TYPE_EVENT:
-
-
-			// sockets  // there are more than one ? 
-
-			// need socket.getIOEvent(eventSting)
-
-			System.out.println( "##" + message.getData() + "##" );
-
-			
-
-
+			if (eventRouter.handle(message)) break;
 			try {
 				JSONObject event = new JSONObject(message.getData());
 				Object[] argsArray;
@@ -721,14 +715,6 @@ class IOConnection implements IOCallback {
 				logger.warning("Malformated JSON received");
 			}
 			break;
-
-
-
-
-
-
-
-
 		case IOMessage.TYPE_ACK:
 			String[] data = message.getData().split("\\+", 2);
 			if (data.length == 2) {

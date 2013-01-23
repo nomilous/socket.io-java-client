@@ -22,6 +22,15 @@ class IOEventRouter {
 
     }
 
+    public boolean handle(IOMessage message) {
+
+
+        
+
+        
+        return false;
+    }
+
     public IOEvent get(String event) {
         return (IOEvent) map.get(event);
     }

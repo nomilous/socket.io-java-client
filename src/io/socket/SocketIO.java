@@ -30,7 +30,7 @@ public class SocketIO {
 	private IOConnection connection;
 
 	/** registered event callback definition collection **/
-	private IOEventRouter events = new IOEventRouter();
+	private IOEventRouter eventRouter = new IOEventRouter();
 
 	/** namespace. */
 	private String namespace;
@@ -239,7 +239,7 @@ public class SocketIO {
 	 * 
 	 */
 	public IOEvent when(final String event, final Class... classes) {
-		return this.events.when(event, classes);
+		return this.eventRouter.when(event, classes);
 	}
 
 	/**
@@ -316,12 +316,12 @@ public class SocketIO {
 	}
 
 	/**
-	 * Gets the registered callback wrapper. Internally used.
+	 * Gets the IOEventRouter. Internally used.
 	 * 
-	 * @return the IOEvent
+	 * @return the IOEventRouter
 	 */
-	public IOEvent getIOEvent(String event) {
-		return this.events.get(event);
+	public IOEventRouter getEventRouter() {
+		return this.eventRouter;
 	}
 
 	/**
