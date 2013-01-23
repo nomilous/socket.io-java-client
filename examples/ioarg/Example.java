@@ -82,14 +82,14 @@ class Example extends IODefaultCallback {
     public Example() throws Exception {
         socket = new SocketIO();
 
-        socket.when("server:sends:cloned:pigs", 
+        socket.when("server:sends:cloned:sheep", 
 
             Clone.class, OperatingInstructions.class
 
         ).then( new IOEvent.Handler () {
 
             @Override
-            public void handle( IOAcknowledge ack, Class... args ) {
+            public void handle( IOAcknowledge ack, Object... args ) {
 
             }
 

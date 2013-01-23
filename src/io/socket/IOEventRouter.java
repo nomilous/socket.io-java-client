@@ -6,7 +6,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.Gson;
 
 class IOEventRouter { 
 
@@ -16,9 +15,9 @@ class IOEventRouter {
     /** Marshals from Classes to JSON **/
     static final JsonParser jsonParser = new JsonParser();
 
-    public IOEvent when(String event, Class... args) {
+    public IOEvent when(String event, Class... argTypes) {
 
-        IOEvent e = new IOEvent(args);
+        IOEvent e = new IOEvent(argTypes);
         IOEvent old = map.put(event, e); 
 
         //
