@@ -12,7 +12,6 @@ class IOEventRouter {
     /* A map of IOEvents registered with socketIO.when().then() **/ 
     private HashMap<String, IOEvent> map = new HashMap<String, IOEvent>();
 
-    /** Marshals from Classes to JSON **/
     static final JsonParser jsonParser = new JsonParser();
 
     public IOEvent when(String event, Class... argTypes) {

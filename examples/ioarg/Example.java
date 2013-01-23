@@ -50,21 +50,22 @@ class UnKnown extends Known {
 }
 
 class Clone extends IOArg {
-    private String description;
     private String thing;
+    private String colour;
     private int count;
     public String toString() { 
         return String.format(
-            "%s tally is %d", thing, count
+            "tally is %d %s %s", count, colour, thing
         ); 
     }
 }
 
 class OperatingInstructions extends IOArg {
     private String instruction1;
+    private String instruction2;
     public String toString() { 
         return String.format(
-            "%s", instruction1
+            "%s and %s", instruction1, instruction2
         ); 
     }
 }

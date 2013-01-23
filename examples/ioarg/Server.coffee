@@ -4,10 +4,8 @@ io = require('socket.io').listen 3001
 #
 #
 
-class Clone
-    constructor: (@count, @thing) ->
-        @description = "#{@count*=2} #{@thing}"
-        console.log @description
+class Clone 
+    constructor: (@count, @colour, @thing) ->
 
 io.sockets.on 'connection', (socket) -> 
 
@@ -16,5 +14,7 @@ io.sockets.on 'connection', (socket) ->
         console.log knowledge
         console.log afterthought
 
-        socket.emit 'server:sends:cloned:sheep', new Clone( 2, 'sheep'), instruction1: 'Make warmer jerseys.'
+        socket.emit 'server:sends:cloned:sheep', new Clone(2, 'black', 'sheep'), 
+            instruction1: 'Make warmer jerseys'
+            instruction2: 'Make double ply cardigans'
 
