@@ -22,12 +22,16 @@ class IOEventRouter {
 
     }
 
-    public boolean handle(IOMessage message) {
+    public boolean handle(IOMessage message, IOAcknowledge ack) {
 
+        //
+        // Not too certain what to do with the ack emitter,
+        // Just pass it through to the handler callback,
+        // Ok
+        // 
 
         
 
-        
         return false;
     }
 

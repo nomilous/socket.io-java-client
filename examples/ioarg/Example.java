@@ -89,7 +89,7 @@ class Example extends IODefaultCallback {
         ).then( new IOEvent.Handler () {
 
             @Override
-            public void handle( Class... args ) {
+            public void handle( IOAcknowledge ack, Class... args ) {
 
             }
 

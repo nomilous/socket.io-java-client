@@ -3,7 +3,7 @@ package io.socket;
 public class IOEvent {
 
     public static interface Handler {
-        void handle(Class... args);
+        void handle(IOAcknowledge ack, Class... args);
     }
 
     private Class[] args;
