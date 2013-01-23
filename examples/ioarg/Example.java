@@ -82,7 +82,7 @@ class Example extends IODefaultCallback {
     public Example() throws Exception {
         socket = new SocketIO();
 
-        socket.when("server:sends:cloned:sheep", 
+        socket.when("server:sends:cloned:pigs", 
 
             Clone.class, OperatingInstructions.class
 

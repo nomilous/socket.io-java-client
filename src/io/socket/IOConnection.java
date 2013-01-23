@@ -689,8 +689,16 @@ class IOConnection implements IOCallback {
 			}
 			break;
 		case IOMessage.TYPE_EVENT:
-			IOAcknowledge rAck = remoteAcknowledge(message);
-			if (eventRouter.handle(message, rAck)) break;
+			IOAcknowledge rAck = null;
+			try {
+				rAck = remoteAcknowledge(message);
+				if (eventRouter.handle(message, rAck, logger)) break;
+			} catch (Exception e) {
+				error( new SocketIOException(
+					"Exception was thrown in on(String, JSONObject[]).\n"
+					+ "Message was: " + message.toString(), e));
+			}
+
 			try {
 				JSONObject event = new JSONObject(message.getData());
 				Object[] argsArray;
