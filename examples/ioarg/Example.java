@@ -51,19 +51,22 @@ class UnKnown extends Known {
 
 class Clone extends IOArg {
     private String description;
-    private String type;
+    private String thing;
     private int count;
     public String toString() { 
         return String.format(
-
-            "f(%s) = %d", type, count
-
+            "%s tally is %d", thing, count
         ); 
     }
 }
 
 class OperatingInstructions extends IOArg {
-    public String instruction1;
+    private String instruction1;
+    public String toString() { 
+        return String.format(
+            "%s", instruction1
+        ); 
+    }
 }
 
 
@@ -91,8 +94,12 @@ class Example extends IODefaultCallback {
             @Override
             public void handle( IOAcknowledge ack, Object... args ) {
 
-            }
+                System.out.println( "\n\n" );
+                System.out.println( "Cloned:       " + args[0].toString() );
+                System.out.println( "Instructions: " + args[1].toString() );
+                System.out.println( "\n\n" );
 
+            }
 
         });
 

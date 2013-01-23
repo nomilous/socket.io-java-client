@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonArray;
+import com.google.gson.Gson;
 
 public class IOEvent {
 
@@ -12,15 +13,18 @@ public class IOEvent {
         void handle(IOAcknowledge ack, Object... args);
     }
 
+    /** Marshals from Classes to JSON **/
+    private Gson gson = new Gson();
+    
+    private Handler handler;
     protected Class[] argTypes;
-    private Handler callback;
 
     public IOEvent(Class... argTypes) {
         this.argTypes = argTypes;
     }
 
-    public IOEvent then(final Handler callback) {
-        this.callback = callback;
+    public IOEvent then(final Handler handler) {
+        this.handler = handler;
         return this;
     }
 
@@ -33,16 +37,14 @@ public class IOEvent {
         Iterator<JsonElement> ii = jsonArgs.iterator();
         while( ii.hasNext() ) {
 
-
-
-            Class klass = argTypes[i++];
-            System.out.println( ii.next().toString() + " <---> " + klass.toString() );
-
-
+            Class klass = argTypes[i];
+            args[i++] = gson.fromJson(ii.next(), klass);
 
         }
 
-        return false;
+        handler.handle(ack, args);
+
+        return true;
     }
 
 }
