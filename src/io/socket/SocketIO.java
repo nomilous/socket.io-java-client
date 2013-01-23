@@ -29,6 +29,9 @@ public class SocketIO {
 	/** connection of this Socket. */
 	private IOConnection connection;
 
+	/** registered event callback definition collection **/
+	private IOEventRouter events = new IOEventRouter();
+
 	/** namespace. */
 	private String namespace;
 
@@ -235,21 +238,8 @@ public class SocketIO {
 	 *            of an event arriving from the remote host
 	 * 
 	 */
-	public void when(final String event, final Class... classes) {
-
-
-
-
-		//
-		// pending...
-		//
-
-
-		//
-		// consider also supporting an external callback
-		// that is expecting those args.
-		// 
-
+	public IOEvent when(final String event, final Class... classes) {
+		return this.events.when(event, classes);
 	}
 
 	/**
@@ -323,6 +313,15 @@ public class SocketIO {
 	 */
 	public IOCallback getCallback() {
 		return this.callback;
+	}
+
+	/**
+	 * Gets the registered callback wrapper. Internally used.
+	 * 
+	 * @return the IOEvent
+	 */
+	public IOEvent getIOEvent(String event) {
+		return this.events.get(event);
 	}
 
 	/**

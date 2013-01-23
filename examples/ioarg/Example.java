@@ -8,6 +8,7 @@ import io.socket.SocketIOException;
 
 import io.socket.IOArg;
 import io.socket.IODefaultCallback;
+import io.socket.IOEvent;
 
 class Knowledge extends IOArg {
     private UnKnown[] unknownUnknowns;
@@ -81,7 +82,19 @@ class Example extends IODefaultCallback {
     public Example() throws Exception {
         socket = new SocketIO();
 
-        socket.when("server:sends:cloned:sheep", Clone.class, OperatingInstructions.class);
+        socket.when("server:sends:cloned:sheep", 
+
+            Clone.class, OperatingInstructions.class
+
+        ).then( new IOEvent.Handler () {
+
+            @Override
+            public void handle( Class... args ) {
+
+            }
+
+
+        });
 
 
         //

@@ -687,13 +687,13 @@ class IOConnection implements IOCallback {
 		case IOMessage.TYPE_EVENT:
 
 
+			// sockets  // there are more than one ? 
 
+			// need socket.getIOEvent(eventSting)
 
-			//
-			// pending alterations
-			//
+			System.out.println( "##" + message.getData() + "##" );
 
-
+			
 
 
 			try {
