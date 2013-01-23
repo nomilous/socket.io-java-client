@@ -1,3 +1,4 @@
 bin/
 jar/
 node_modules
+examples/**/*.class
