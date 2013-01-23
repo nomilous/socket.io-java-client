@@ -18,7 +18,7 @@ class IOEventRouter {
         // may come in handy later
         //
 
-        return e;  // to enable calling e.when() on the chain
+        return e;  // to enable calling e.then() on the chain
 
     }
 
