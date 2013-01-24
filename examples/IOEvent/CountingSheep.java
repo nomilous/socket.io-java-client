@@ -81,7 +81,7 @@ class CountingSheep {
             new IOEvent.Handler () {
 
                 @Override
-                public void handle( IOAcknowledge ack, String event, Object... args ) {
+                public void handle( String event, IOAcknowledge ack, Object... args ) {
 
                     //
                     // args contains the populated instances of the 
