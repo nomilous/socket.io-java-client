@@ -10,7 +10,7 @@ import io.socket.IOArg;
 import io.socket.IODefaultCallback;
 import io.socket.IOEvent;
 
-class Knowledge extends IOArg {
+class Knowledge implements IOArgs {
     private UnKnown[] unknownUnknowns;
     protected UnKnown[] knownUnknowns;
     public Known[] knownKnowns;
@@ -35,7 +35,7 @@ class Knowledge extends IOArg {
     }
 }
 
-class Known extends IOArg{
+class Known implements IOArg{
     protected String type;
     public Known() {}
     public Known(String type) {
@@ -49,7 +49,7 @@ class UnKnown extends Known {
     }
 }
 
-class Clone extends IOArg {
+class Clone {
     private String thing;
     private String colour;
     private int count;
@@ -60,7 +60,7 @@ class Clone extends IOArg {
     }
 }
 
-class OperatingInstructions extends IOArg {
+class OperatingInstructions {
     private String instruction1;
     private String instruction2;
     public String toString() { 
@@ -86,50 +86,11 @@ class Example extends IODefaultCallback {
     public Example() throws Exception {
         socket = new SocketIO();
 
-        socket.when("server:sends:cloned:sheep", 
-
-            Clone.class, OperatingInstructions.class
-
-        ).then( new IOEvent.Handler () {
-
-            @Override
-            public void handle( IOAcknowledge ack, Object... args ) {
-
-                System.out.println( "\n\n" );
-                System.out.println( "Cloned:       " + args[0].toString() );
-                System.out.println( "Instructions: " + args[1].toString() );
-                System.out.println( "\n\n" );
-
-            }
-
-        });
-
-
-        //
-        // final PlanetInspection pi = new ThirdComing();
-        //
-        //
-        //
-        // socket.when("enterprise:beams:recon", Data.class, Spock.class, Kirk.class, BleepyThing.class).then( new IOEvent() {
-        // 
-        //      public void handle( Data data, Spock spock, Kirk kirk, BleepyThing nexus7 ) { 
-        //
-        //           // 
-        //           // possible >> ?
-        //           // 
-        //
-        //           pi.doWith( data, spock, kirk, nexus7 );
-        // 
-        //      }
-        //
-        // }) ;
-        //
-
-
         socket.connect("http://127.0.0.1:3001/", this);
 
         //
         // Pass Object instances to socket.io emitter
+        // These objects should implement
         // 
 
         socket.emit("event:sent:to:server", new Knowledge(), new Known(" garden") );

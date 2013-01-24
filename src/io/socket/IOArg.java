@@ -14,9 +14,7 @@ package io.socket;
 
 import com.google.gson.Gson;
 
-public class IOArg {
-
-}
+public interface IOArg {}
 
 class IOArgMarshal {
 
