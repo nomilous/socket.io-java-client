@@ -16,7 +16,7 @@ class IOEventRouter {
 
     public IOEvent when(String event, Class... argTypes) {
 
-        IOEvent e = new IOEvent(argTypes);
+        IOEvent e = new IOEvent(event, argTypes);
         IOEvent old = map.put(event, e); 
 
         //

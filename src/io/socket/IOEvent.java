@@ -10,16 +10,18 @@ import com.google.gson.Gson;
 public class IOEvent {
 
     public static interface Handler {
-        void handle(IOAcknowledge ack, Object... args);
+        void handle(IOAcknowledge ack, String event, Object... args);
     }
 
     /** Marshals from Classes to JSON **/
     private Gson gson = new Gson();
     
     private Handler handler;
+    private String event;
     protected Class[] argTypes;
 
-    public IOEvent(Class... argTypes) {
+    public IOEvent(String event, Class... argTypes) {
+        this.event = event;
         this.argTypes = argTypes;
     }
 
@@ -42,7 +44,7 @@ public class IOEvent {
 
         }
 
-        handler.handle(ack, args);
+        handler.handle(ack, event, args);
 
         return true;
     }
