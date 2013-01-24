@@ -1,15 +1,14 @@
 io = require('socket.io').listen 3001
 
-class Palette
-    @colours: ['white','black','orange']
+colours = ['white','black','orange']
 
 class Sheep
     constructor: (n) -> 
-        @colour = Palette.colours[0]
+        @colour = colours[0]
         if n.match /3/ 
-            @colour = Palette.colours[1]
+            @colour = colours[1]
         else if n.match /7/
-            @colour = Palette.colours[2]
+            @colour = colours[2]
 
 
 class Flock
@@ -22,4 +21,4 @@ class Flock
 
 io.sockets.on 'connection', (socket) -> 
 
-    socket.emit 'server:sends:flock:of:sheep', new Flock(500), Palette
+    socket.emit 'server:sends:flock:of:sheep', new Flock(500), colours: colours

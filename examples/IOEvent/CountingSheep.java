@@ -8,16 +8,44 @@ import io.socket.SocketIO;
 import io.socket.SocketIOException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 class Palette {
     public String[] colours;
 }
 
 class Sheep {
-    protected String colour; 
+    public String colour;
 }
 
 class Flock {
     private Sheep[] sheep;
+    public Sheep[] getSheep() {
+        return sheep;
+    }
+}
+
+class Insomniac {
+
+    public static void count( Sheep[] flock, Palette colours ) {
+
+        for( String colour : colours.colours )
+            counts.put( colour, 0 );
+
+        for( Sheep sheep : flock )
+            counts.put( sheep.colour, counts.get( sheep.colour ) + 1 );
+
+        for( String colour : colours.colours )
+            System.out.println(String.format(
+
+                "There have been %d %s sheep so far.", (int) counts.get(colour), colour
+
+            ));
+
+    }
+
+    public static HashMap<String,Integer> counts = new HashMap();
+
 }
 
 
@@ -59,8 +87,11 @@ class CountingSheep {
                     // args contains the populated instances of the 
                     // classes as registered with .when()
                     //
-                    
 
+                    Flock flock = (Flock) args[0];
+
+                    Insomniac.count( flock.getSheep(), (Palette) args[1] );
+                    
                 }
             }
         );
